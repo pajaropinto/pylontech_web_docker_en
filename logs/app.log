@@ -1,0 +1,28 @@
+[Sun Jan 18 11:58:34 2026] 🔋 Iniciando monitor Pylontech...
+[Sun Jan 18 11:58:34 2026] ✅ Configuración cargada.
+[Sun Jan 18 11:58:34 2026] ⚙️ Hilos iniciados.
+[Sun Jan 18 11:58:34 2026] 🌐 Servidor web escuchando en puerto 61616
+[Sun Jan 18 12:19:42 2026] 🔋 Iniciando monitor Pylontech...
+[Sun Jan 18 12:19:42 2026] ✅ Configuración cargada.
+[Sun Jan 18 12:19:42 2026] ⚙️ Hilos iniciados.
+[Sun Jan 18 12:19:42 2026] 🌐 Servidor web escuchando en puerto 61616
+[Sun Jan 18 12:27:18 2026] 🔋 Iniciando monitor Pylontech...
+[Sun Jan 18 12:27:18 2026] ✅ Configuración cargada:
+[Sun Jan 18 12:27:18 2026]    battery_tcp_ip: 10.0.0.234
+[Sun Jan 18 12:27:18 2026]    battery_tcp_port: 10034
+[Sun Jan 18 12:27:18 2026] ⚙️ Iniciando servidor web...
+[Sun Jan 18 12:27:18 2026] 🌐 Servidor web escuchando en puerto 61616
+[Sun Jan 18 12:36:26 2026] 🔋 Iniciando monitor Pylontech...
+[Sun Jan 18 12:36:26 2026] ✅ Configuración cargada:
+[Sun Jan 18 12:36:26 2026]    battery_tcp_ip: 10.0.0.234
+[Sun Jan 18 12:36:26 2026]    battery_tcp_port: 10034
+[Sun Jan 18 12:36:26 2026] ⚙️ Iniciando hilos...
+[Sun Jan 18 12:36:26 2026] 🌐 Servidor web escuchando en puerto 61616
+[Sun Jan 18 12:36:26 2026] 🔋 Hilo de monitoreo iniciado.
+[Sun Jan 18 12:46:38 2026] 🔋 Iniciando monitor Pylontech...
+[Sun Jan 18 12:46:38 2026] ✅ Configuración cargada:
+[Sun Jan 18 12:46:38 2026]    battery_tcp_ip: 10.0.0.234
+[Sun Jan 18 12:46:38 2026]    battery_tcp_port: 10034
+[Sun Jan 18 12:46:38 2026] ⚙️ Iniciando hilos...
+[Sun Jan 18 12:46:38 2026] 🌐 Servidor web escuchando en puerto 61616
+[Sun Jan 18 12:46:38 2026] 🔋 Hilo de monitoreo iniciado.
