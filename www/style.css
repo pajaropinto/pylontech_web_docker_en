@@ -1,4 +1,4 @@
-/* Estilos generales */
+/* General styles */
 body {
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
@@ -27,7 +27,7 @@ h2 {
     margin-bottom: 15px;
 }
 
-/* Pestañas */
+/* Tabs */
 .tabs {
     display: flex;
     justify-content: center;
@@ -53,7 +53,7 @@ h2 {
     display: none;
 }
 
-/* === PESTAÑA 1: TOTALES === */
+/* === TAB 1: TOTALS === */
 #mqttStatus {
     text-align: center;
     padding: 6px 12px;
@@ -101,7 +101,7 @@ h2 {
     background-color: #f9f9f9;
 }
 
-/* === PESTAÑA 3: CONFIGURACIÓN === */
+/* === TAB 3: CONFIGURATION === */
 .config-section {
     max-width: 600px;
     margin: 0 auto;
@@ -172,7 +172,7 @@ h2 {
     font-size: 14px;
 }
 
-/* Tablas de baterías individuales */
+/* Individual battery tables */
 .battery-section {
     margin-bottom: 30px;
 }
