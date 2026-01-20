@@ -1,0 +1,12 @@
+{
+    "battery_tcp_ip": "10.0.0.234",
+    "battery_tcp_port": 10034,
+    "delay_between_batteries": 1000,
+    "delay_between_cycle_battery": 1,
+    "mqtt_broker_ip": "10.0.0.250",
+    "mqtt_broker_port": 1883,
+    "mqtt_broker_ws_port": 9001,
+    "mqtt_password": "password",
+    "mqtt_user": "user",
+    "num_batteries": 15
+}
