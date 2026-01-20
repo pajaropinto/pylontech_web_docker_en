@@ -186,5 +186,5 @@ Este proyecto es de código abierto y está disponible bajo la licencia MIT.
 
 ---
 
-**Desarrollado con ❤️ para la comunidad de Home Assistant y energía solar**  
+**Desarrollado para la comunidad de Home Assistant y energía solar**  
 **Versión 2.1 - Disponible en [Docker Hub](https://hub.docker.com/r/pajaropinto/pylontech_monitor_es)**
