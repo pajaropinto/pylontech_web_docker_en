@@ -1,40 +1,40 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monitor Pylontech</title>
+    <title>Pylontech Monitor</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/4.3.2/mqtt.min.js"></script>
 </head>
 
 <body>
     <div class="container">
-        <h1>🔋 Monitor Pylontech</h1>
+        <h1>🔋 Pylontech Monitor</h1>
 
-        <!-- Pestañas -->
+        <!-- Tabs -->
         <div class="tabs">
-            <button class="tab-button active" onclick="openTab(event, 'tab1')">📊 Totales</button>
-            <button class="tab-button" onclick="openTab(event, 'tab2')">🔋 Baterías</button>
-            <button class="tab-button" onclick="openTab(event, 'tab3')">⚙️ Configuración</button>
+            <button class="tab-button active" onclick="openTab(event, 'tab1')">📊 Totals</button>
+            <button class="tab-button" onclick="openTab(event, 'tab2')">🔋 Batteries</button>
+            <button class="tab-button" onclick="openTab(event, 'tab3')">⚙️ Configuration</button>
         </div>
 
-        <!-- Pestaña 1: Totales -->
+        <!-- Tab 1: Totals -->
         <div id="tab1" class="tab-content" style="display: block;">
-            <h2>📊 Totales del Sistema</h2>
+            <h2>📊 System Totals</h2>
             <div id="mqttStatus" class="status-indicator"></div>
 
             <table id="systemTable" class="data-table">
                 <thead>
                     <tr>
-                        <th>Voltaje (V)</th>
-                        <th>Corriente (A)</th>
-                        <th>Temperatura (°C)</th>
+                        <th>Voltage (V)</th>
+                        <th>Current (A)</th>
+                        <th>Temperature (°C)</th>
                         <th>SOC (%)</th>
-                        <th>Estado</th>
+                        <th>Status</th>
                         <th>Coulomb (Ah)</th>
-                        <th>Ciclos</th>
+                        <th>Cycles</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,18 +50,18 @@
                 </tbody>
             </table>
 
-            <h2>🔋 Totales por Batería</h2>
+            <h2>🔋 Battery Totals</h2>
             <table id="batteryTable" class="data-table">
                 <thead>
                     <tr>
-                        <th>Batería</th>
-                        <th>Voltaje (V)</th>
-                        <th>Corriente (A)</th>
-                        <th>Temperatura (°C)</th>
+                        <th>Battery</th>
+                        <th>Voltage (V)</th>
+                        <th>Current (A)</th>
+                        <th>Temperature (°C)</th>
                         <th>SOC (%)</th>
-                        <th>Estado</th>
+                        <th>Status</th>
                         <th>Coulomb (Ah)</th>
-                        <th>Ciclos</th>
+                        <th>Cycles</th>
                     </tr>
                 </thead>
                 <tbody id="batteryTableBody">
@@ -69,72 +69,72 @@
             </table>
         </div>
 
-        <!-- Pestaña 2: Baterías -->
+        <!-- Tab 2: Batteries -->
         <div id="tab2" class="tab-content" style="display: none;">
-            <h2>🔋 Datos por Batería</h2>
+            <h2>🔋 Battery Data</h2>
             <div id="batteriesContainer">
-                <p>Cargando datos de baterías...</p>
+                <p>Loading battery data...</p>
             </div>
         </div>
 
-        <!-- Pestaña 3: Configuración -->
+        <!-- Tab 3: Configuration -->
         <div id="tab3" class="tab-content" style="display: none;">
-            <h2>⚙️ Configuración del Sistema</h2>
+            <h2>⚙️ System Configuration</h2>
 
             <div class="config-section">
                 <div class="config-group">
-                    <label for="num_batteries">Número de baterías:</label>
+                    <label for="num_batteries">Number of batteries:</label>
                     <input type="number" id="num_batteries" min="1" max="16">
                 </div>
 
                 <div class="config-group">
-                    <label for="delay_between_batteries">Retardo entre baterías (ms):</label>
+                    <label for="delay_between_batteries">Delay between batteries (ms):</label>
                     <input type="number" id="delay_between_batteries" min="100">
                 </div>
 
                 <div class="config-group">
-                    <label for="delay_between_cycle_battery">Duración ciclo BAT (min):</label>
+                    <label for="delay_between_cycle_battery">BAT cycle duration (min):</label>
                     <input type="number" id="delay_between_cycle_battery" min="1">
                 </div>
 
                 <div class="config-group">
-                    <label for="battery_tcp_ip">IP del interface TCP/Serial:</label>
+                    <label for="battery_tcp_ip">TCP/Serial interface IP:</label>
                     <input type="text" id="battery_tcp_ip" placeholder="10.0.0.234">
                 </div>
 
                 <div class="config-group">
-                    <label for="battery_tcp_port">Puerto del interface TCP/Serial:</label>
+                    <label for="battery_tcp_port">TCP/Serial interface port:</label>
                     <input type="number" id="battery_tcp_port" min="1" max="65535">
                 </div>
 
                 <div class="config-group">
-                    <label for="mqtt_broker_ip">IP del Broker MQTT:</label>
+                    <label for="mqtt_broker_ip">MQTT Broker IP:</label>
                     <input type="text" id="mqtt_broker_ip" placeholder="10.0.0.250">
                 </div>
 
                 <div class="config-group">
-                    <label for="mqtt_broker_port">Puerto MQTT:</label>
+                    <label for="mqtt_broker_port">MQTT Port:</label>
                     <input type="number" id="mqtt_broker_port" min="1" max="65535">
                 </div>
 
                 <div class="config-group">
-                    <label for="mqtt_broker_ws_port">Puerto WebSocket MQTT:</label>
+                    <label for="mqtt_broker_ws_port">MQTT WebSocket Port:</label>
                     <input type="number" id="mqtt_broker_ws_port" min="1" max="65535">
                 </div>
 
                 <div class="config-group">
-                    <label for="mqtt_user">Usuario MQTT:</label>
+                    <label for="mqtt_user">MQTT User:</label>
                     <input type="text" id="mqtt_user">
                 </div>
 
                 <div class="config-group">
-                    <label for="mqtt_password">Contraseña MQTT:</label>
+                    <label for="mqtt_password">MQTT Password:</label>
                     <input type="password" id="mqtt_password">
                 </div>
 
                 <div class="button-group">
-                    <button id="loadConfigBtn">Cargar</button>
-                    <button id="saveConfigBtn">Salvar</button>
+                    <button id="loadConfigBtn">Load</button>
+                    <button id="saveConfigBtn">Save</button>
                 </div>
 
                 <div id="configStatus"></div>
