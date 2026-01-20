@@ -18,7 +18,7 @@
 #include <vector>
 
 
-// === SERVIDOR WEB (Mongoose v7+) ===
+// === WEB SERVER (Mongoose v7+) ===
 #define MG_ENABLE_SOCKET 1
 #define MG_ENABLE_DIRLIST 0
 #define MG_ENABLE_HTTP_WEBSOCKET 0
@@ -56,7 +56,7 @@ void load_config() {
   try {
     if (!fs::exists("config/app_config.json")) {
       log_message(
-          "⚠️ config/app_config.json no existe. Creando predeterminado.");
+          "⚠️ config/app_config.json does not exist. Creating default.");
       json default_cfg = {{"num_batteries", 15},
                           {"delay_between_batteries", 2000},
                           {"delay_between_cycle_battery", 5},
@@ -86,23 +86,23 @@ void load_config() {
     g_config.mqtt_user = j.value("mqtt_user", "fernan");
     g_config.mqtt_password = j.value("mqtt_password", "Nabucodonos0_");
 
-    log_message("✅ Configuración cargada:");
+    log_message("✅ Configuration loaded:");
     log_message("   num_batteries: " + to_string(g_config.num_batteries));
     log_message("   delay_between_batteries: " +
                 to_string(g_config.delay_between_batteries) + " ms");
     log_message("   delay_between_cycle_battery: " +
                 to_string(g_config.delay_between_cycle_battery) + " min");
   } catch (const exception &e) {
-    log_message("❌ Error al cargar config: " + string(e.what()));
+    log_message("❌ Error loading config: " + string(e.what()));
   }
 }
 
-// === MANEJADOR DE EVENTOS HTTP ===
+// === HTTP EVENT HANDLER ===
 static void fn(struct mg_connection *c, int ev, void *ev_data) {
   if (ev == MG_EV_HTTP_MSG) {
     struct mg_http_message *hm = (struct mg_http_message *)ev_data;
 
-    // Obtener URI
+    // Get URI
     string uri(hm->uri.buf, hm->uri.len);
 
     // API: GET /api/config
@@ -145,24 +145,24 @@ static void fn(struct mg_connection *c, int ev, void *ev_data) {
       }
     }
 
-    // Servir archivos estáticos
+    // Serve static files
     string filepath = "www" + uri;
     if (uri == "/")
       filepath = "www/index.html";
 
-    // Prevenir directory traversal
+    // Prevent directory traversal
     if (filepath.find("..") != string::npos) {
       mg_http_reply(c, 403, "", "{\"error\":\"Forbidden\"}");
       return;
     }
 
-    // Verificar existencia
+    // Check existence
     if (!fs::exists(filepath)) {
       mg_http_reply(c, 404, "", "{\"error\":\"Not found\"}");
       return;
     }
 
-    // Servir archivo
+    // Serve file
     mg_http_serve_opts opts = {0};
     mg_http_serve_file(c, hm, filepath.c_str(), &opts);
   }
@@ -284,7 +284,7 @@ int parse_stat_response(const string &resp) {
               return value;
             }
           } catch (...) {
-            // stoi falló
+            // stoi failed
           }
         }
       }
@@ -625,14 +625,14 @@ void publish_total_system() {
 }
 
 int main() {
-  log_message("🔋 Iniciando monitor de baterías Pylontech...");
+  log_message("🔋 Starting Pylontech battery monitor...");
 
-  // === INICIAR SERVIDOR WEB ===
+  // === START WEB SERVER ===
   struct mg_mgr mgr;
   mg_mgr_init(&mgr);
   mg_http_listen(&mgr, "http://0.0.0.0:61616", fn, NULL);
   thread web_thread([&mgr]() {
-    log_message("🌐 Servidor web iniciado en http://0.0.0.0:61616");
+    log_message("🌐 Web server started on http://0.0.0.0:61616");
     while (true) {
       mg_mgr_poll(&mgr, 1000);
     }
@@ -656,7 +656,7 @@ int main() {
       }
     }
 
-    log_message("📊 Leyendo datos STAT (con validación robusta)...");
+    log_message("📊 Reading STAT data (with robust validation)...");
     bool all_valid = false;
     int stat_retries = 0;
     const int MAX_STAT_RETRIES = 5;
@@ -667,20 +667,20 @@ int main() {
 
       for (int i = 1; i <= g_config.num_batteries; ++i) {
         string cmd_stat = "stat " + to_string(i);
-        log_message("📡 Enviando: " + cmd_stat);
+        log_message("📡 Sending: " + cmd_stat);
         string resp_stat = send_battery_command(cmd_stat);
 
         int cycles = parse_stat_response(resp_stat);
         if (cycles == -1) {
-          log_message("⚠️ Batería " + to_string(i) +
-                      ": ciclo inválido. Reintentando...");
+          log_message("⚠️ Battery " + to_string(i) +
+                      ": invalid cycle count. Retrying...");
           all_valid = false;
           break;
         }
 
         temp_cycles[i - 1] = cycles;
-        log_message("   Batería " + to_string(i) +
-                    ": ciclos = " + to_string(cycles));
+        log_message("   Battery " + to_string(i) +
+                    ": cycles = " + to_string(cycles));
 
         this_thread::sleep_for(
             chrono::milliseconds(g_config.delay_between_batteries));
@@ -690,18 +690,18 @@ int main() {
         for (int i = 0; i < g_config.num_batteries; ++i) {
           g_batteries[i].cycle_count = temp_cycles[i];
         }
-        log_message("✅ Todos los ciclos son válidos.");
+        log_message("✅ All cycle counts are valid.");
       } else {
         stat_retries++;
-        log_message("🔄 Reintento " + to_string(stat_retries) + "/" +
-                    to_string(MAX_STAT_RETRIES) + " de STAT...");
+        log_message("🔄 Retry " + to_string(stat_retries) + "/" +
+                    to_string(MAX_STAT_RETRIES) + " for STAT...");
         this_thread::sleep_for(chrono::seconds(2));
       }
     }
 
     if (!all_valid) {
       log_message(
-          "❌ Máximo de reintentos alcanzado. Usando últimos valores válidos.");
+          "❌ Maximum retries reached. Using last valid values.");
     }
 
     int total_ms = g_config.delay_between_cycle_battery * 60 * 1000;
@@ -709,13 +709,13 @@ int main() {
         g_config.num_batteries * g_config.delay_between_batteries;
     int repetitions = max(1, total_ms / time_per_cycle);
 
-    log_message("🔄 Ejecutando " + to_string(repetitions) +
-                " ciclos de BAT...");
+    log_message("🔄 Executing " + to_string(repetitions) +
+                " BAT cycles...");
 
     for (int rep = 0; rep < repetitions; ++rep) {
       for (int i = 1; i <= g_config.num_batteries; ++i) {
         string cmd_bat = "bat " + to_string(i);
-        log_message("📡 Enviando: " + cmd_bat);
+        log_message("📡 Sending: " + cmd_bat);
         string resp_bat = send_battery_command(cmd_bat);
 
         json bat_flat = parse_bat_table_to_flat_json(resp_bat);
@@ -733,7 +733,7 @@ int main() {
       publish_total_system();
     }
 
-    log_message("🔚 Ciclo completo finalizado. Reiniciando...");
+    log_message("🔚 Complete cycle finished. Restarting...");
   }
 
   return 0;
