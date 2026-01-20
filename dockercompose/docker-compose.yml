@@ -1,0 +1,17 @@
+services:
+    axpert-monitor:
+        image: pajaropinto/pylontech_monitor_es:latest
+        container_name: pylontech-monitor
+        volumes:
+            - /main/storage/docker/pylontech_monitor/config:/config
+            - /main/storage/docker/pylontech_monitor/log:/log
+        restart: always
+        networks:
+            homeassistant:
+                ipv4_address: 172.100.0.85
+        ports:
+            - "61616:61616"
+networks:
+    homeassistant:
+        external: true
+        name: homeassistant
