@@ -1,4 +1,4 @@
-# Etapa de compilación
+# Build stage
 FROM alpine:latest AS builder
 
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
@@ -16,7 +16,7 @@ COPY src/main.cpp src/
 RUN g++ -static -std=c++17 -O2 -pthread src/main.cpp src/mongoose.c -o pylontech_monitor
 
 
-# Etapa final
+# Final stage
 FROM alpine:latest
 
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
