@@ -1,6 +1,7 @@
+traduce al ingles:
 # Monitor Pylontech para Home Assistant
 
-![Pylontech Battery Monitoring](https://img.shields.io/badge/Version-2.1-blue) ![Docker](https://img.shields.io/badge/Docker-Compatible-green)
+![Pylontech Battery Monitoring](https://img.shields.io/badge/Version-2.1-blue  ) ![Docker](https://img.shields.io/badge/Docker-Compatible-green  )
 
 **Monitor Pylontech** es una aplicación completa y robusta diseñada para monitorear sistemas de baterías Pylontech a través de un LV-Hub, recopilando datos en tiempo real y publicándolos en un broker MQTT para su integración con Home Assistant y otras plataformas de automatización.
 
@@ -187,4 +188,4 @@ Este proyecto es de código abierto y está disponible bajo la licencia MIT.
 ---
 
 **Desarrollado para la comunidad de Home Assistant y energía solar**  
-**Versión 2.1 - Disponible en [Docker Hub](https://hub.docker.com/r/pajaropinto/pylontech_monitor_es)**
+**Versión 2.1 - Disponible en [Docker Hub](https://hub.docker.com/r/pajaropinto/pylontech_monitor_es  )**
